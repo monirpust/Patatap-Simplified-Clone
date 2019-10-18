@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Circles</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="assets/js/paper-full.js"></script>
+	<script type="text/javascript" src="assets/js/howler.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/patatap.css">
+
+	<script type="text/paperscript" canvas="myCanvas">
+
+	var keyData = {
+
+		a:{
+		sound: new Howl({
+		    src: ['assets/sounds/bubbles.mp3']
+		    }),
+		  color: '#03c03c'
+		 },
+
+		b:{
+		sound: new Howl({
+		    src: ['assets/sounds/clay.mp3']
+		    }),
+		  color: '#efdecd'
+		 },	
+
+		 c:{
+		sound: new Howl({
+		    src: ['assets/sounds/confetti.mp3']
+		    }),
+		  color: '#ffbf00'
+		 },	
+
+		 d:{
+		sound: new Howl({
+		    src: ['assets/sounds/corona.mp3']
+		    }),
+		  color: '#ff033e'
+		 },	
+
+		 e:{
+		sound: new Howl({
+		    src: ['assets/sounds/dotted-spiral.mp3']
+		    }),
+		  color: ' 	#9966cc'
+		 },
+
+		f:{
+		sound: new Howl({
+		    src: ['assets/sounds/flash-1.mp3']
+		    }),
+		  color: '#a4c639'
+		 },
+
+		g:{
+		sound: new Howl({
+		    src: ['assets/sounds/flash-2.mp3']
+		    }),
+		  color: '#915c83'
+		 },
+
+		 h:{
+		sound: new Howl({
+		    src: ['assets/sounds/flash-3.mp3']
+		    }),
+		  color: '#008000'
+		 },	
+
+		 i:{
+		sound: new Howl({
+		    src: ['assets/sounds/glimmer.mp3']
+		    }),
+		  color: ' 	#00ffff'
+		 },	
+
+		 j:{
+		sound: new Howl({
+		    src: ['assets/sounds/moon.mp3']
+		    }),
+		  color: '#ff033e'
+		 },
+		k:{
+		sound: new Howl({
+		    src: ['assets/sounds/pinwheel.mp3']
+		    }),
+		  color: '#ff9966'
+		 },
+
+		l:{
+		sound: new Howl({
+		    src: ['assets/sounds/piston-1.mp3']
+		    }),
+		  color: '#a52a2a'
+		 },	
+
+		 m:{
+		sound: new Howl({
+		    src: ['assets/sounds/piston-2.mp3']
+		    }),
+		  color: '#fdee00'
+		 },	
+
+		 n:{
+		sound: new Howl({
+		    src: ['assets/sounds/piston-3.mp3']
+		    }),
+		  color: '#ff2052'
+		 },
+
+		 o:{
+		sound: new Howl({
+		    src: ['assets/sounds/prism-1.mp3']
+		    }),
+		  color: '#007fff'
+		 },
+
+		p:{
+		sound: new Howl({
+		    src: ['assets/sounds/prism-2.mp3']
+		    }),
+		  color: '#89cff0'
+		 },
+
+		q:{
+		sound: new Howl({
+		    src: ['assets/sounds/prism-3.mp3']
+		    }),
+		  color: '#f4c2c2'
+		 },	
+
+		 r:{
+		sound: new Howl({
+		    src: ['assets/sounds/prism-3.mp3']
+		    }),
+		  color: '#21abcd'
+		 },	
+
+		 s:{
+		sound: new Howl({
+		    src: ['assets/sounds/squiggle.mp3']
+		    }),
+		  color: '#ffe135'
+		 },
+
+		 t:{
+		sound: new Howl({
+		    src: ['assets/sounds/suspension.mp3']
+		    }),
+		  color: 'fe6f5e'
+		 },
+
+		u:{
+		sound: new Howl({
+		    src: ['assets/sounds/strike.mp3']
+		    }),
+		  color: '#318ce7'
+		 },
+
+		v:{
+		sound: new Howl({
+		    src: ['assets/sounds/bubbles.mp3']
+		    }),
+		  color: '#ace5ee'
+		 },	
+
+		 w:{
+		sound: new Howl({
+		    src: ['assets/sounds/timer.mp3']
+		    }),
+		  color: '#0d98ba'
+		 },	
+
+		 x:{
+		sound: new Howl({
+		    src: ['assets/sounds/timer.mp3']
+		    }),
+		  color: '#de5d83'
+		 },	
+
+		 y:{
+		sound: new Howl({
+		    src: ['assets/sounds/veil.mp3']
+		    }),
+		  color: '#0095b6'
+		 },
+
+		 z:{
+		sound: new Howl({
+		    src: ['assets/sounds/wipe.mp3']
+		    }),
+		  color: '#006a4e'
+		 }
+
+
+
+	}
+
+	var circle = []
+		
+	function onKeyDown(event) {
+
+	if(keyData[event.key]){
+
+		//creating a random point to use it as cirlce centre on keypress
+		var maxPoint = new Point(view.size.width, view.size.height)
+		var randomPoint = new Point.random()
+		var point = maxPoint*randomPoint
+
+		//creating circle, add fill color store it variable on keypress
+		var circleCreate = new Path.Circle(point, 500)
+		circleCreate.fillColor = keyData[event.key].color
+
+		//play unique sound for every keypress
+		keyData[event.key].sound.play()
+
+		//storing all keypressed generated circle to cirlce array
+		circle.push(circleCreate)
+	}
+}
+
+
+//animating the circle 
+function onFrame(event) {
+	for(var i = 0; i < circle.length; i++){
+		//for changing fill color with every frame change
+		circle[i].fillColor.hue += 1
+		//scaling down with every frame change
+		circle[i].scale(.9)
+
+	}
+}
+			
+</script>
+
+</head>
+<body>
+	<canvas id="myCanvas" resize></canvas>
+</body>
+</html>
